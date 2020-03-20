@@ -1,1 +1,1 @@
-export * from './App.entity';
+export { App } from './App.entity';

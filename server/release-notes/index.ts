@@ -1,1 +1,1 @@
-export * from './ReleaseNotes.entity';
+export { ReleaseNotes } from './ReleaseNotes.entity';

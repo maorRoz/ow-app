@@ -1,7 +1,6 @@
 import { Entity, ObjectType, ManyToOne, PrimaryColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsDateString, IsOptional, IsBoolean } from 'class-validator';
-// eslint-disable-next-line import/no-cycle
 import { App } from '../app';
 
 @Entity()
