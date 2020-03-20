@@ -74,6 +74,23 @@
     "lint": "eslint . --ext .ts --ext .tsx --fix"
   },
   "proxy": "http://localhost:8308",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "post-commit": "git update-index --again",
+      "pre-commit": "yarn lint && git add && lint-staged"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
