@@ -1,4 +1,4 @@
-import { Entity, ObjectType, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Entity, ObjectType, ManyToOne, PrimaryColumn, Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsDateString, IsOptional, IsBoolean } from 'class-validator';
 import { App } from '../app';
@@ -20,13 +20,15 @@ export class ReleaseNotes {
   })
   versionNumber: string;
 
-  @IsDateString()
+  @Column('text')
+  //@IsDateString()
   @ApiProperty({
     required: true,
     example: '27-5-2020'
   })
   releaseDate: string;
 
+  @Column('text')
   @IsString()
   @ApiProperty({
     required: true,
@@ -34,6 +36,7 @@ export class ReleaseNotes {
   })
   releaseNotes: string;
 
+  @Column('boolean')
   @IsOptional()
   @IsBoolean()
   @ApiProperty({

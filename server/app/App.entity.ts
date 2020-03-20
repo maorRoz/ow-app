@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, OneToMany, ObjectType } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ObjectType,
+  Column
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 import { ReleaseNotes } from '../release-notes';
@@ -9,6 +15,7 @@ export class App {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column('text')
   @IsString()
   @ApiProperty({
     required: true,
@@ -16,6 +23,7 @@ export class App {
   })
   name: string;
 
+  @Column('text')
   @IsString()
   @ApiProperty({
     required: true,
@@ -27,5 +35,5 @@ export class App {
     (): ObjectType<ReleaseNotes> => ReleaseNotes,
     releaseNotes => releaseNotes.app
   )
-  releaseNotes: ReleaseNotes[];
+  releaseNotes?: ReleaseNotes[];
 }
