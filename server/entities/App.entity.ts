@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
-import { ReleaseNotes } from '../release-notes';
+import { ReleaseNotes } from './ReleaseNotes.entity';
 
 @Entity()
 export class App {

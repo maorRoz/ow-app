@@ -1,0 +1,97 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ReleaseNotes } from '../../entities/ReleaseNotes.entity';
+import { App } from '../../entities/App.entity';
+
+const NUM_OF_RELEASE_NOTES_PER_PAGE = 5;
+
+@Injectable()
+export class ReleaseNotesService {
+  constructor(
+    @InjectRepository(ReleaseNotes)
+    private readonly releaseNotesRepository: Repository<ReleaseNotes>,
+    @InjectRepository(App)
+    private readonly appRepository: Repository<App>
+  ) {}
+
+  async insertReleaseNotes({
+    appId,
+    releaseNotes
+  }: {
+    appId: App['id'];
+    releaseNotes: ReleaseNotes;
+  }): Promise<ReleaseNotes> {
+    const app = await this.appRepository.findOneOrFail(appId);
+    await this.releaseNotesRepository.insert({ app, ...releaseNotes });
+    return releaseNotes;
+  }
+
+  async updateReleaseNotes({
+    appId,
+    versionNumber,
+    notes,
+    published
+  }: {
+    appId: App['id'];
+  } & Pick<ReleaseNotes, 'versionNumber' | 'notes' | 'published'>): Promise<
+    ReleaseNotes
+  > {
+    const app = await this.appRepository.findOneOrFail(appId);
+    await this.releaseNotesRepository.update(
+      { app, versionNumber },
+      { notes, published }
+    );
+
+    return this.releaseNotesRepository.findOne({ app, versionNumber });
+  }
+
+  async findAllReleaseNotes(appId: App['id']): Promise<ReleaseNotes[]> {
+    const app = await this.appRepository.findOneOrFail(appId);
+    return this.releaseNotesRepository.find({ app });
+  }
+
+  async findAllPublishedReleaseNotes({
+    versionNumber,
+    page = 1
+  }: Pick<ReleaseNotes, 'versionNumber'> & { page?: number }): Promise<{
+    itemsPerPage: number;
+    content: Pick<ReleaseNotes, 'versionNumber' | 'releaseDate' | 'notes'>[];
+  }> {
+    const publishedReleaseNotesArray = await this.releaseNotesRepository.find({
+      published: true
+    });
+
+    const oldPublishedReleaseNotesArray = publishedReleaseNotesArray.filter(
+      releaseNotes => releaseNotes.versionNumber !== versionNumber
+    );
+
+    const requestedReleaseNotes = publishedReleaseNotesArray.find(
+      releaseNotes => releaseNotes.versionNumber === versionNumber
+    );
+
+    const sortedReleaseNotesArray = [requestedReleaseNotes].concat(
+      oldPublishedReleaseNotesArray
+    );
+
+    const fixedPage = page > 0 ? page : 1;
+
+    const paginatedReleaseNotesArray = sortedReleaseNotesArray.slice(
+      (fixedPage - 1) * NUM_OF_RELEASE_NOTES_PER_PAGE,
+      fixedPage * NUM_OF_RELEASE_NOTES_PER_PAGE
+    );
+
+    const fixedPaginatedReleaseNotesArray = paginatedReleaseNotesArray.map(
+      releaseNotes => ({
+        versionNumber: releaseNotes.versionNumber,
+        releaseDate: releaseNotes.releaseDate,
+        notes: releaseNotes.notes
+      })
+    );
+
+    return {
+      itemsPerPage: NUM_OF_RELEASE_NOTES_PER_PAGE,
+      content: fixedPaginatedReleaseNotesArray
+    };
+  }
+}

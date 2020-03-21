@@ -1,7 +1,7 @@
 import { Entity, ObjectType, ManyToOne, PrimaryColumn, Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsDateString, IsOptional, IsBoolean } from 'class-validator';
-import { App } from '../app';
+import { IsString, IsOptional, IsBoolean } from 'class-validator';
+import { App } from './App.entity';
 
 @Entity()
 export class ReleaseNotes {
@@ -34,7 +34,7 @@ export class ReleaseNotes {
     required: true,
     example: 'My great release notes!'
   })
-  releaseNotes: string;
+  notes: string;
 
   @Column('boolean')
   @IsOptional()

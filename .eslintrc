@@ -75,8 +75,12 @@
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off"
       }
+    },
+    {
+      "files": ["*.entity.ts"],
+      "rules": {
+        "import/no-cycle": "off"
+      }
     }
-
-
   ]
 }

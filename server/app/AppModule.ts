@@ -2,8 +2,8 @@ import { Module, forwardRef, DynamicModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './AppController';
 import { AppService } from './AppService';
-import { App } from './App.entity';
-import { ReleaseNotesModule } from '../release-notes';
+import { App } from '../entities';
+import { ReleaseNotesModule } from './release-notes';
 
 @Module({
   imports: [
