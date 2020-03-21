@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  Query
+} from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
@@ -58,6 +66,7 @@ export class ReleaseNotesController {
     content: Pick<ReleaseNotes, 'versionNumber' | 'releaseDate' | 'notes'>[];
   }> {
     return this.releaseNotesService.findAllPublishedReleaseNotes({
+      appId,
       versionNumber,
       page
     });

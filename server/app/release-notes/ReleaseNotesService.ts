@@ -52,13 +52,20 @@ export class ReleaseNotesService {
   }
 
   async findAllPublishedReleaseNotes({
+    appId,
     versionNumber,
     page = 1
-  }: Pick<ReleaseNotes, 'versionNumber'> & { page?: number }): Promise<{
+  }: {
+    appId: App['id'];
+    versionNumber: ReleaseNotes['versionNumber'];
+    page?: number;
+  }): Promise<{
     itemsPerPage: number;
     content: Pick<ReleaseNotes, 'versionNumber' | 'releaseDate' | 'notes'>[];
   }> {
+    const app = await this.appRepository.findOneOrFail(appId);
     const publishedReleaseNotesArray = await this.releaseNotesRepository.find({
+      app,
       published: true
     });
 
