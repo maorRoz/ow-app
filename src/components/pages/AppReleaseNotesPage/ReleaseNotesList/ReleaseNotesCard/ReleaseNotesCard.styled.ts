@@ -19,6 +19,11 @@ export const VersionNumber = styled.div`
   font-weight: bold;
 `;
 
+export const ReleaseDate = styled.div`
+  font-style: italic;
+  color: grey;
+`;
+
 const IsPublishedTag = styled.div`
   padding: 5px;
   border-radius: 8px;

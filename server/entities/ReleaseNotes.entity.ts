@@ -1,6 +1,12 @@
 import { Entity, ObjectType, ManyToOne, PrimaryColumn, Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsBoolean, Matches } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  Matches,
+  IsDateString
+} from 'class-validator';
 import { App } from './App.entity';
 
 @Entity()
@@ -21,7 +27,7 @@ export class ReleaseNotes {
   versionNumber: string;
 
   @Column('text')
-  //@IsDateString()
+  @IsDateString()
   @ApiProperty({
     required: true,
     example: '27-5-2020'

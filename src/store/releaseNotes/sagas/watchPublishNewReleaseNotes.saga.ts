@@ -21,7 +21,7 @@ export function* publishNewReleaseNotesSaga() {
     const appId: string = yield select(getSelectedAppIdSelector);
     yield call(CreateReleaseNotesApi, appId, {
       ...newReleaseNotesDetails,
-      releaseDate: '27-5-2020'
+      releaseDate: new Date()
     });
     yield put(clearNewReleaseNotesForm());
     yield put(fetchReleaseNotes(appId));

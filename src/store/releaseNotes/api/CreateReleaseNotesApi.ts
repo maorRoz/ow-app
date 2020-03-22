@@ -3,6 +3,6 @@ import { App, ReleaseNotes } from '../../../types';
 
 export const CreateReleaseNotesApi = (
   appId: App['id'],
-  releaseNotes: ReleaseNotes
+  releaseNotes: Omit<ReleaseNotes, 'releaseDate'> & { releaseDate: Date }
 ): Promise<AxiosResponse<App>> =>
   axios.post(`/api/app/${appId}/releaseNotes`, releaseNotes);

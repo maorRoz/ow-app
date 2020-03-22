@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -7,6 +8,7 @@ import {
   Card,
   CardHeader,
   VersionNumber,
+  ReleaseDate,
   PublishedTag,
   NotPublishedTag,
   CardBody
@@ -23,7 +25,7 @@ export const ReleaseNotesCard = ({ releaseNotes }: ReleaseNotesCardProps) => {
 
   const [editMode, setEditMode] = useState(false);
 
-  const { versionNumber, notes, published } = releaseNotes;
+  const { versionNumber, releaseDate, notes, published } = releaseNotes;
 
   const [editableNotes, setEditableNotes] = useState(notes);
   const [editablePublishStatus, setEditablePublishStatus] = useState(published);
@@ -79,6 +81,7 @@ export const ReleaseNotesCard = ({ releaseNotes }: ReleaseNotesCardProps) => {
           <NotPublishedTag>NOT PUBLISHED</NotPublishedTag>
         )}
       </CardHeader>
+      <ReleaseDate>{moment(releaseDate).format('DD-MM-YYYY')}</ReleaseDate>
       {editMode ? (
         <div>
           <NotesBody value={editableNotes} onChange={handleNotesChange} />
