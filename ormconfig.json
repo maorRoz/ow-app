@@ -5,7 +5,6 @@
   "username": "root",
   "password": "root",
   "database": "postgres",
-  "schema": "ow-app",
   "entities": ["server/**/*.entity.{ts,js}"],
   "synchronize": true,
   "logging": false
