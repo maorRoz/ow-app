@@ -6,5 +6,5 @@ export { getReleaseNotesSelector } from './getReleaseNotesSelector';
 export { isNewReleaseNotesDetailsValidSelector } from './isNewReleaseNotesDetailsValidSelector';
 export { getNewReleaseNotesDetailsSelector } from './getNewReleaseNotesDetailsSelector';
 export { isReleaseNotesAddModeSelector } from './isReleaseNotesAddModeSelector';
-export { getSelectedAppSelector } from './getSelectedAppSelector';
+export { getSelectedAppIdSelector } from './getSelectedAppIdSelector';
 export { isSubmitFailedSelector } from './isSubmitFailedSelector';

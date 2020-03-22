@@ -9,7 +9,7 @@ import {
 import { ReleaseNotes } from '../../../types';
 import {
   getNewReleaseNotesDetailsSelector,
-  getSelectedAppSelector
+  getSelectedAppIdSelector
 } from '../../../selectors';
 
 export function* publishNewReleaseNotesSaga() {
@@ -18,7 +18,7 @@ export function* publishNewReleaseNotesSaga() {
       ReleaseNotes,
       'versionNumber' | 'notes' | 'published'
     > = yield select(getNewReleaseNotesDetailsSelector);
-    const appId: string = yield select(getSelectedAppSelector);
+    const appId: string = yield select(getSelectedAppIdSelector);
     yield call(CreateReleaseNotesApi, appId, {
       ...newReleaseNotesDetails,
       releaseDate: '27-5-2020'

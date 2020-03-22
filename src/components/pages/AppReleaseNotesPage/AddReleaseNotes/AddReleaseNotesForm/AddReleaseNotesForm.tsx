@@ -18,7 +18,7 @@ import {
   getNewReleaseNotesDetailsSelector,
   isSubmitFailedSelector
 } from '../../../../../selectors';
-import { NotesBody } from '../../NotsBody';
+import { NotesBody } from '../../NotesBody';
 
 export const AddReleaseNotesForm = () => {
   const dispatch = useDispatch();

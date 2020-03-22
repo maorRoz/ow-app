@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { ReleaseNotes } from '../../../../../types';
@@ -10,44 +11,89 @@ import {
   NotPublishedTag,
   CardBody
 } from './ReleaseNotesCard.styled';
-import { NotesBody } from '../../NotsBody';
+import { NotesBody } from '../../NotesBody';
+import { submitReleaseNotesChanges } from '../../../../../store';
 
 export type ReleaseNotesCardProps = {
   releaseNotes: ReleaseNotes;
 };
 
 export const ReleaseNotesCard = ({ releaseNotes }: ReleaseNotesCardProps) => {
-  const [isEdit, setIsEdit] = useState(false);
+  const dispatch = useDispatch();
+
+  const [editMode, setEditMode] = useState(false);
+
+  const { versionNumber, notes, published } = releaseNotes;
+
+  const [editableNotes, setEditableNotes] = useState(notes);
+  const [editablePublishStatus, setEditablePublishStatus] = useState(published);
+
+  useEffect(() => {
+    setEditableNotes(notes);
+  }, [notes]);
+
+  useEffect(() => {
+    setEditablePublishStatus(published);
+  }, [published]);
+
+  const handleNotesChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setEditableNotes(e.target.value);
+    },
+    [setEditableNotes]
+  );
+
+  const handlePublishStatusChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+      setEditablePublishStatus(checked);
+    },
+    [setEditablePublishStatus]
+  );
 
   const handleEnableEdit = useCallback(() => {
-    !isEdit && setIsEdit(true);
-  }, [isEdit]);
+    !editMode && setEditMode(true);
+  }, [editMode]);
 
   const handleDisableEdit = useCallback(() => {
-    setIsEdit(false);
+    setEditMode(false);
   }, []);
 
+  const handlePublish = useCallback(() => {
+    dispatch(
+      submitReleaseNotesChanges({
+        versionNumber,
+        notes: editableNotes,
+        published: editablePublishStatus
+      })
+    );
+    setEditMode(false);
+  }, [dispatch, versionNumber, editableNotes, editablePublishStatus]);
+
   return (
-    <Card onClick={handleEnableEdit}>
+    <Card>
       <CardHeader>
         <VersionNumber>{releaseNotes.versionNumber}</VersionNumber>
-        {releaseNotes.published ? (
+        {published ? (
           <PublishedTag>PUBLISHED</PublishedTag>
         ) : (
           <NotPublishedTag>NOT PUBLISHED</NotPublishedTag>
         )}
       </CardHeader>
-      {isEdit ? (
+      {editMode ? (
         <div>
-          <NotesBody defaultValue={releaseNotes.notes} />
+          <NotesBody value={editableNotes} onChange={handleNotesChange} />
           <div>
-            <Checkbox defaultChecked color="primary" />
+            <Checkbox
+              checked={editablePublishStatus}
+              color="primary"
+              onChange={handlePublishStatusChange}
+            />
             published
           </div>
           <Button
             variant="contained"
             color="primary"
-            //onClick={() => {}}
+            onClick={handlePublish}
             style={{ marginRight: '5px' }}
           >
             PUBLISH
@@ -61,7 +107,7 @@ export const ReleaseNotesCard = ({ releaseNotes }: ReleaseNotesCardProps) => {
           </Button>
         </div>
       ) : (
-        <CardBody>{releaseNotes.notes}</CardBody>
+        <CardBody onClick={handleEnableEdit}>{releaseNotes.notes}</CardBody>
       )}
     </Card>
   );

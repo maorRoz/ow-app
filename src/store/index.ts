@@ -9,5 +9,6 @@ export {
   fetchReleaseNotes,
   toggleReleaseNotesAddMode,
   updateNewReleaseNotesDetails,
-  publishNewReleaseNotes
+  publishNewReleaseNotes,
+  submitReleaseNotesChanges
 } from './releaseNotes';

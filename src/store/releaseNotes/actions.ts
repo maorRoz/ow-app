@@ -6,7 +6,8 @@ import {
   UPDATE_NEW_REALEASE_NOTES_DETAILS,
   PUBLISH_NEW_RELEASE_NOTES,
   CLEAR_NEW_RELEASE_NOTES_FORM,
-  TOGGLE_SUBMIT_FAILED
+  TOGGLE_SUBMIT_FAILED,
+  SUBMIT_RELEASE_NOTES_CHANGES
 } from './types';
 import { ReleaseNotes, App } from '../../types';
 
@@ -48,4 +49,11 @@ export const clearNewReleaseNotesForm = (): ReleaseNotesActionTypes => ({
 
 export const toggleSubmitFailed = (): ReleaseNotesActionTypes => ({
   type: TOGGLE_SUBMIT_FAILED
+});
+
+export const submitReleaseNotesChanges = (
+  releaseNotes: Pick<ReleaseNotes, 'versionNumber' | 'notes' | 'published'>
+): ReleaseNotesActionTypes => ({
+  type: SUBMIT_RELEASE_NOTES_CHANGES,
+  payload: releaseNotes
 });

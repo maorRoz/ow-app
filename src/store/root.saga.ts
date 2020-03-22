@@ -2,14 +2,16 @@ import { all, fork } from 'redux-saga/effects';
 import { watchFetchAppsSaga, watchPublishNewAppSaga } from './app';
 import {
   watchFetchReleaseNotesSaga,
-  watchPublishNewReleaseNotesSaga
+  watchPublishNewReleaseNotesSaga,
+  watchUpdateReleaseNotesSaga
 } from './releaseNotes';
 
 const sagas = [
   watchFetchAppsSaga,
   watchPublishNewAppSaga,
   watchFetchReleaseNotesSaga,
-  watchPublishNewReleaseNotesSaga
+  watchPublishNewReleaseNotesSaga,
+  watchUpdateReleaseNotesSaga
 ];
 
 export function* rootSaga() {

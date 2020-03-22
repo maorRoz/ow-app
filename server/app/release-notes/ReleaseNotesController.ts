@@ -50,7 +50,7 @@ export class ReleaseNotesController {
   @HttpCode(200)
   @Post(':versionNumber')
   @ApiOperation({ summary: 'Get all published ReleaseNotes of the App' })
-  @ApiParam({ name: 'appId', schema: { type: 'string', format: 'uuid' } })
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiParam({ name: 'versionNumber', type: 'string' })
   @ApiQuery({ name: 'page', type: 'number', required: false })
   @ApiOkResponse({
@@ -58,7 +58,7 @@ export class ReleaseNotesController {
     type: [App]
   })
   getPublishedReleaseNotes(
-    @Param('appId') appId: App['id'],
+    @Param('id') appId: App['id'],
     @Param('versionNumber') versionNumber: ReleaseNotes['versionNumber'],
     @Query('page') page: number
   ): Promise<{
@@ -74,14 +74,14 @@ export class ReleaseNotesController {
 
   @Patch(':versionNumber')
   @ApiOperation({ summary: 'Update ReleaseNotes' })
-  @ApiParam({ name: 'appId', schema: { type: 'string', format: 'uuid' } })
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiParam({ name: 'versionNumber', type: 'string' })
   @ApiOkResponse({
     description: 'Successfully updated ReleaseNotes',
     type: ReleaseNotes
   })
   updateReleaseNotes(
-    @Param('appId') appId: App['id'],
+    @Param('id') appId: App['id'],
     @Param('versionNumber') versionNumber: ReleaseNotes['versionNumber'],
     @Body()
     releaseNotesUpdateParams: ReleaseNotesUpdateDto

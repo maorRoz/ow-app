@@ -38,7 +38,7 @@ export const NotPublishedTag = styled(IsPublishedTag)`
 export const CardBody = styled.div`
   min-height: 140px;
   font-size: 16px;
-  ${Card}:hover & {
+  &:hover {
     background-color: grey;
     opacity: 0.2;
   }
