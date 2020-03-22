@@ -1,6 +1,6 @@
 import { Entity, ObjectType, ManyToOne, PrimaryColumn, Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsBoolean } from 'class-validator';
+import { IsString, IsOptional, IsBoolean, Matches } from 'class-validator';
 import { App } from './App.entity';
 
 @Entity()
@@ -13,7 +13,7 @@ export class ReleaseNotes {
   app: App;
 
   @PrimaryColumn()
-  @IsString() // change to regex expression
+  @Matches(/^(\d+\.)(\d+\.)(\*|\d+)$/)
   @ApiProperty({
     required: true,
     example: '1.0.0'

@@ -26,7 +26,7 @@ import { ReleaseNotesUpdateDto } from './dto/ReleaseNotesUpdateDto';
 export class ReleaseNotesController {
   constructor(private readonly releaseNotesService: ReleaseNotesService) {}
 
-  @Get('')
+  @Get()
   @ApiOperation({ summary: 'Get all ReleaseNotes of the App' })
   @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   getAllReleaseNotes(@Param('id') appId: App['id']): Promise<ReleaseNotes[]> {
@@ -35,13 +35,13 @@ export class ReleaseNotesController {
 
   @Post()
   @ApiOperation({ summary: 'Create ReleaseNotes for the App' })
-  @ApiParam({ name: 'appId', schema: { type: 'string', format: 'uuid' } })
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiCreatedResponse({
     description: 'Successfully created ReleaseNotes',
     type: ReleaseNotes
   })
   createReleaseNotes(
-    @Param('appId') appId: App['id'],
+    @Param('id') appId: App['id'],
     @Body() releaseNotes: ReleaseNotes
   ): Promise<ReleaseNotes> {
     return this.releaseNotesService.insertReleaseNotes({ appId, releaseNotes });

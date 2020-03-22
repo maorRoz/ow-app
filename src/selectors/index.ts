@@ -3,3 +3,8 @@ export { isAddModeSelector } from './isAddModeSelector';
 export { isNewAppDetailsValidSelector } from './isNewAppDetailsValidSelector';
 export { getNewAppDetailsSelector } from './getNewAppDetailsSelector';
 export { getReleaseNotesSelector } from './getReleaseNotesSelector';
+export { isNewReleaseNotesDetailsValidSelector } from './isNewReleaseNotesDetailsValidSelector';
+export { getNewReleaseNotesDetailsSelector } from './getNewReleaseNotesDetailsSelector';
+export { isReleaseNotesAddModeSelector } from './isReleaseNotesAddModeSelector';
+export { getSelectedAppSelector } from './getSelectedAppSelector';
+export { isSubmitFailedSelector } from './isSubmitFailedSelector';

@@ -23,7 +23,7 @@ export class ReleaseNotesService {
     releaseNotes: ReleaseNotes;
   }): Promise<ReleaseNotes> {
     const app = await this.appRepository.findOneOrFail(appId);
-    await this.releaseNotesRepository.insert({ app, ...releaseNotes });
+    await this.releaseNotesRepository.insert({ ...releaseNotes, app });
     return releaseNotes;
   }
 

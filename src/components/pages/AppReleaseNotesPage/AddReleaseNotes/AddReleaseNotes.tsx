@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { AddReleaseNotesButton } from './AddReleaseNotesButton';
 import { AddReleaseNotesForm } from './AddReleaseNotesForm';
 import { AddReleaseNotesLayout } from './AddReleaseNotes.styled';
-import { isAddModeSelector } from '../../../../selectors';
+import { isReleaseNotesAddModeSelector } from '../../../../selectors';
 
 export const AddReleaseNotes = () => {
-  const isAddMode = useSelector(isAddModeSelector);
+  const isAddMode = useSelector(isReleaseNotesAddModeSelector);
   return (
     <AddReleaseNotesLayout>
       {isAddMode ? <AddReleaseNotesForm /> : <AddReleaseNotesButton />}

@@ -9,29 +9,64 @@ import {
   FormBody,
   FormField
 } from './AddReleaseNotesForm.styled';
-import { publishNewApp, updateNewAppDetails } from '../../../../../store';
 import {
-  isNewAppDetailsValidSelector,
-  getNewAppDetailsSelector
+  publishNewReleaseNotes,
+  updateNewReleaseNotesDetails
+} from '../../../../../store';
+import {
+  isNewReleaseNotesDetailsValidSelector,
+  getNewReleaseNotesDetailsSelector,
+  isSubmitFailedSelector
 } from '../../../../../selectors';
 import { NotesBody } from '../../NotsBody';
 
 export const AddReleaseNotesForm = () => {
   const dispatch = useDispatch();
 
-  const isSubmitValid = useSelector(isNewAppDetailsValidSelector);
+  const isSubmitValid = useSelector(isNewReleaseNotesDetailsValidSelector);
 
-  const newAppDetails = useSelector(getNewAppDetailsSelector);
+  const newReleaseNotesDetails = useSelector(getNewReleaseNotesDetailsSelector);
 
-  const handleAppNameChange = useCallback(
+  const isSubmitFailed = useSelector(isSubmitFailedSelector);
+
+  const handleVersionNumberChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(updateNewAppDetails({ ...newAppDetails, name: e.target.value }));
+      dispatch(
+        updateNewReleaseNotesDetails({
+          ...newReleaseNotesDetails,
+          versionNumber: e.target.value
+        })
+      );
     },
-    [dispatch, newAppDetails]
+    [dispatch, newReleaseNotesDetails]
+  );
+
+  const handleNotesChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      dispatch(
+        updateNewReleaseNotesDetails({
+          ...newReleaseNotesDetails,
+          notes: e.target.value
+        })
+      );
+    },
+    [dispatch, newReleaseNotesDetails]
+  );
+
+  const handlePublishStatusChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+      dispatch(
+        updateNewReleaseNotesDetails({
+          ...newReleaseNotesDetails,
+          published: checked
+        })
+      );
+    },
+    [dispatch, newReleaseNotesDetails]
   );
 
   const handleSubmit = useCallback(() => {
-    dispatch(publishNewApp());
+    dispatch(publishNewReleaseNotes());
   }, [dispatch]);
 
   return (
@@ -42,18 +77,32 @@ export const AddReleaseNotesForm = () => {
           <TextField
             required
             label="Version Number"
+            placeholder="xxx.yyy.zzz"
+            error={isSubmitFailed}
+            helperText={
+              isSubmitFailed &&
+              'Please enter valid version number format - xxx.yyy.zzz'
+            }
             variant="outlined"
             size="small"
-            value={newAppDetails.name}
-            onChange={handleAppNameChange}
+            value={newReleaseNotesDetails.versionNumber}
+            onChange={handleVersionNumberChange}
             style={{ width: '100%' }}
           />
         </FormField>
         <FormField>
-          <NotesBody />
+          <NotesBody
+            placeholder="Enter version release notes description..."
+            value={newReleaseNotesDetails.notes}
+            onChange={handleNotesChange}
+          />
         </FormField>
         <FormField>
-          <Checkbox defaultChecked color="primary" />
+          <Checkbox
+            color="primary"
+            checked={newReleaseNotesDetails.published}
+            onChange={handlePublishStatusChange}
+          />
           published
         </FormField>
       </FormBody>
