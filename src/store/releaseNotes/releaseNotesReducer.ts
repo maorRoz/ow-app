@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import {
   ReleaseNotesActionTypes,
   FETCH_RELEASE_NOTES,
+  SET_SELECTED_APP_NAME,
   SAVE_RELEASE_NOTES,
   TOGGLE_RELEASE_NOTES_ADD_MODE,
   UPDATE_NEW_REALEASE_NOTES_DETAILS,
@@ -13,7 +14,8 @@ import { ReleaseNotes, App } from '../../types';
 
 type ReleaseNotesState = {
   items: ReleaseNotes[];
-  app: App['id'];
+  appId: App['id'];
+  appName: App['name'];
   isAddMode?: boolean;
   newReleaseNotesDetails?: Pick<
     ReleaseNotes,
@@ -22,7 +24,7 @@ type ReleaseNotesState = {
   isSubmitFailed?: boolean;
 };
 
-const initialState: ReleaseNotesState = { items: [], app: '' };
+const initialState: ReleaseNotesState = { items: [], appId: '', appName: '' };
 
 export const releaseNotesReducer: Reducer<
   ReleaseNotesState,
@@ -30,7 +32,9 @@ export const releaseNotesReducer: Reducer<
 > = (state = initialState, action): ReleaseNotesState => {
   switch (action.type) {
     case FETCH_RELEASE_NOTES:
-      return { ...state, app: action.payload };
+      return { ...state, appId: action.payload };
+    case SET_SELECTED_APP_NAME:
+      return { ...state, appName: action.payload };
     case SAVE_RELEASE_NOTES:
       return { ...state, items: action.payload };
     case TOGGLE_RELEASE_NOTES_ADD_MODE:

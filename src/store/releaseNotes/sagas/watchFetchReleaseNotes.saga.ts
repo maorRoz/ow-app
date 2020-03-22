@@ -1,18 +1,27 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
-import { ReleaseNotes } from '../../../types';
+import { ReleaseNotes, App } from '../../../types';
 import { FETCH_RELEASE_NOTES, FetchReleaseNotesAction } from '../types';
-import { GetReleaseNotesApi } from '../api';
-import { saveReleaseNotes } from '../actions';
+import { GetReleaseNotesApi, GetAppApi } from '../api';
+import { saveReleaseNotes, setSelectedAppName } from '../actions';
+import { getSelectedAppIdSelector } from '../../../selectors';
 
 export function* fetchReleaseNotesSaga(action: FetchReleaseNotesAction) {
   try {
-    const response: AxiosResponse<ReleaseNotes[]> = yield call(
+    const getReleaseNotesResponse: AxiosResponse<ReleaseNotes[]> = yield call(
       GetReleaseNotesApi,
       action.payload
     );
-    const releaseNotesArray = response.data;
+    const releaseNotesArray = getReleaseNotesResponse.data;
     yield put(saveReleaseNotes(releaseNotesArray));
+
+    const appId: string = yield select(getSelectedAppIdSelector);
+
+    const getAppResponse: AxiosResponse<App> = yield call(GetAppApi, appId);
+
+    const { name } = getAppResponse.data;
+
+    yield put(setSelectedAppName(name));
   } catch (e) {
     // add error
   }

@@ -8,3 +8,4 @@ export { getNewReleaseNotesDetailsSelector } from './getNewReleaseNotesDetailsSe
 export { isReleaseNotesAddModeSelector } from './isReleaseNotesAddModeSelector';
 export { getSelectedAppIdSelector } from './getSelectedAppIdSelector';
 export { isSubmitFailedSelector } from './isSubmitFailedSelector';
+export { getSelectedAppNameSelector } from './getSelectedAppNameSelector';

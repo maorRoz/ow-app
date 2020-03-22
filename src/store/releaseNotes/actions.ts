@@ -7,7 +7,8 @@ import {
   PUBLISH_NEW_RELEASE_NOTES,
   CLEAR_NEW_RELEASE_NOTES_FORM,
   TOGGLE_SUBMIT_FAILED,
-  SUBMIT_RELEASE_NOTES_CHANGES
+  SUBMIT_RELEASE_NOTES_CHANGES,
+  SET_SELECTED_APP_NAME
 } from './types';
 import { ReleaseNotes, App } from '../../types';
 
@@ -16,6 +17,13 @@ export const fetchReleaseNotes = (
 ): ReleaseNotesActionTypes => ({
   type: FETCH_RELEASE_NOTES,
   payload: appId
+});
+
+export const setSelectedAppName = (
+  appName: App['name']
+): ReleaseNotesActionTypes => ({
+  type: SET_SELECTED_APP_NAME,
+  payload: appName
 });
 
 export const saveReleaseNotes = (

@@ -2,6 +2,7 @@ import { Action } from 'redux';
 import { ReleaseNotes, App } from '../../types';
 
 export const FETCH_RELEASE_NOTES = 'FETCH_RELEASE_NOTES';
+export const SET_SELECTED_APP_NAME = 'SET_SELECTED_APP_NAME';
 export const SAVE_RELEASE_NOTES = 'SAVE_RELEASE_NOTES';
 export const TOGGLE_RELEASE_NOTES_ADD_MODE = 'TOGGLE_RELEASE_NOTES_ADD_MODE';
 export const UPDATE_NEW_REALEASE_NOTES_DETAILS =
@@ -15,6 +16,12 @@ export interface FetchReleaseNotesAction
   extends Action<typeof FETCH_RELEASE_NOTES> {
   payload: App['id'];
 }
+
+export interface SetSelectedAppName
+  extends Action<typeof SET_SELECTED_APP_NAME> {
+  payload: App['name'];
+}
+
 interface SaveReleaseNotesAction extends Action<typeof SAVE_RELEASE_NOTES> {
   payload: ReleaseNotes[];
 }
@@ -36,6 +43,7 @@ export interface SubmitReleaseNotesChanges
 
 export type ReleaseNotesActionTypes =
   | FetchReleaseNotesAction
+  | SetSelectedAppName
   | SaveReleaseNotesAction
   | ToggleReleaseNotesAddModeAction
   | UpdateNewReleaseNotesDetails
