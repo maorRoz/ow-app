@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  db:
+    image: ntboes/postgres-uuid
+    restart: always
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+volumes:
+  db-data:

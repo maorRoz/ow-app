@@ -76,9 +76,9 @@ export class ReleaseNotesService {
       releaseNotes => releaseNotes.versionNumber === versionNumber
     );
 
-    const sortedReleaseNotesArray = [requestedReleaseNotes].concat(
-      oldPublishedReleaseNotesArray
-    );
+    const sortedReleaseNotesArray = requestedReleaseNotes
+      ? [requestedReleaseNotes].concat(oldPublishedReleaseNotesArray)
+      : oldPublishedReleaseNotesArray;
 
     const fixedPage = page && page > 0 ? page : 1;
 
