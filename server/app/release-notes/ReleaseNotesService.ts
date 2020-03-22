@@ -80,7 +80,7 @@ export class ReleaseNotesService {
       oldPublishedReleaseNotesArray
     );
 
-    const fixedPage = page > 0 ? page : 1;
+    const fixedPage = page && page > 0 ? page : 1;
 
     const paginatedReleaseNotesArray = sortedReleaseNotesArray.slice(
       (fixedPage - 1) * NUM_OF_RELEASE_NOTES_PER_PAGE,

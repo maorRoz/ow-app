@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { App } from '../../../types';
 import { fetchReleaseNotes } from '../../../store';
 import { ReleaseNotesList } from './ReleaseNotesList';
+import { AddReleaseNotes } from './AddReleaseNotes';
 
 export const AppReleaseNotesPage = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export const AppReleaseNotesPage = () => {
   return (
     <>
       <ReleaseNotesList />
+      <AddReleaseNotes />
     </>
   );
 };

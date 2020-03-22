@@ -60,7 +60,7 @@ export class ReleaseNotesController {
   getPublishedReleaseNotes(
     @Param('appId') appId: App['id'],
     @Param('versionNumber') versionNumber: ReleaseNotes['versionNumber'],
-    @Query('page') page = 1
+    @Query('page') page: number
   ): Promise<{
     itemsPerPage: number;
     content: Pick<ReleaseNotes, 'versionNumber' | 'releaseDate' | 'notes'>[];
