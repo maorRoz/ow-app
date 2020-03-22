@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import { toggleAddMode } from '../../../store';
+import { toggleAddMode } from '../../../../../store';
 
 export const AddAppButton = () => {
   const dispatch = useDispatch();

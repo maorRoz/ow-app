@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const Card = styled.div`
+export const Card = styled(Link)`
   cursor: pointer;
   justify-self: stretch;
   padding: 5px 10px;
@@ -11,6 +12,8 @@ export const Card = styled.div`
   &:hover {
     border-color: #7487cc;
   }
+  text-decoration: none;
+  color: inherit;
 `;
 
 const AppField = styled.div`

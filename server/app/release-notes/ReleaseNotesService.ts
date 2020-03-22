@@ -47,8 +47,9 @@ export class ReleaseNotesService {
   }
 
   async findAllReleaseNotes(appId: App['id']): Promise<ReleaseNotes[]> {
-    const app = await this.appRepository.findOneOrFail(appId);
-    return this.releaseNotesRepository.find({ app });
+    return this.releaseNotesRepository.find({
+      where: { app: appId }
+    });
   }
 
   async findAllPublishedReleaseNotes({
@@ -63,10 +64,8 @@ export class ReleaseNotesService {
     itemsPerPage: number;
     content: Pick<ReleaseNotes, 'versionNumber' | 'releaseDate' | 'notes'>[];
   }> {
-    const app = await this.appRepository.findOneOrFail(appId);
     const publishedReleaseNotesArray = await this.releaseNotesRepository.find({
-      app,
-      published: true
+      where: { app: appId, published: true }
     });
 
     const oldPublishedReleaseNotesArray = publishedReleaseNotesArray.filter(

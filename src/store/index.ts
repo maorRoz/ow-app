@@ -5,3 +5,4 @@ export {
   updateNewAppDetails,
   publishNewApp
 } from './app';
+export { fetchReleaseNotes } from './releaseNotes';

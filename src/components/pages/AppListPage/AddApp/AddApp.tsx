@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { AddAppButton } from './AddAppButton';
 import { AddAppForm } from './AddAppForm';
 import { AddAppLayout } from './AddApp.styled';
-import { isAddModeSelector } from '../../selectors';
+import { isAddModeSelector } from '../../../../selectors';
 
 export const AddApp = () => {
   const isAddMode = useSelector(isAddModeSelector);

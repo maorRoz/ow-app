@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const NavBarLayout = styled.div`
   position: sticky;
@@ -11,7 +12,7 @@ export const NavBarLayout = styled.div`
   color: white;
 `;
 
-export const NavBarHeader = styled.div`
+export const NavBarHeader = styled(Link)`
   display: flex;
   align-items: center;
   height: 100%;
@@ -19,4 +20,6 @@ export const NavBarHeader = styled.div`
   margin: 0 auto;
   font-size: 22px;
   font-weight: bold;
+  color: inherit;
+  text-decoration: none;
 `;

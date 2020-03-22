@@ -3,6 +3,6 @@ import { NavBarLayout, NavBarHeader } from './NavBar.styled';
 
 export const NavBar = () => (
   <NavBarLayout>
-    <NavBarHeader>Overwolf App</NavBarHeader>
+    <NavBarHeader to="/">Overwolf App</NavBarHeader>
   </NavBarLayout>
 );

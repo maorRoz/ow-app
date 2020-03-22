@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getAppsSelector } from '../../selectors';
+import { getAppsSelector } from '../../../../selectors';
 import { AppCard } from './AppCard';
 import { Grid } from './AppListGrid.styled';
 

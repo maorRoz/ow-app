@@ -3,11 +3,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormHeader, FormBody, FormField } from './AddAppForm.styled';
-import { publishNewApp, updateNewAppDetails } from '../../../store';
+import { publishNewApp, updateNewAppDetails } from '../../../../../store';
 import {
   isNewAppDetailsValidSelector,
   getNewAppDetailsSelector
-} from '../../../selectors';
+} from '../../../../../selectors';
 
 export const AddAppForm = () => {
   const dispatch = useDispatch();

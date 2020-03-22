@@ -5,6 +5,7 @@ import {
   Body,
   Param,
   Patch,
+  HttpCode,
   Query
 } from '@nestjs/common';
 import {
@@ -25,12 +26,10 @@ import { ReleaseNotesUpdateDto } from './dto/ReleaseNotesUpdateDto';
 export class ReleaseNotesController {
   constructor(private readonly releaseNotesService: ReleaseNotesService) {}
 
-  @Get()
+  @Get('')
   @ApiOperation({ summary: 'Get all ReleaseNotes of the App' })
-  @ApiParam({ name: 'appId', schema: { type: 'string', format: 'uuid' } })
-  getAllReleaseNotes(
-    @Param('appId') appId: App['id']
-  ): Promise<ReleaseNotes[]> {
+  @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
+  getAllReleaseNotes(@Param('id') appId: App['id']): Promise<ReleaseNotes[]> {
     return this.releaseNotesService.findAllReleaseNotes(appId);
   }
 
@@ -48,6 +47,7 @@ export class ReleaseNotesController {
     return this.releaseNotesService.insertReleaseNotes({ appId, releaseNotes });
   }
 
+  @HttpCode(200)
   @Post(':versionNumber')
   @ApiOperation({ summary: 'Get all published ReleaseNotes of the App' })
   @ApiParam({ name: 'appId', schema: { type: 'string', format: 'uuid' } })

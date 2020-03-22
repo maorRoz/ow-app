@@ -1,5 +1,5 @@
 import React from 'react';
-import { App } from '../../../types';
+import { App } from '../../../../../types';
 import { Card, AppName, AppAuthor } from './AppCard.styled';
 
 export type AppCardProps = {
@@ -7,7 +7,7 @@ export type AppCardProps = {
 };
 
 export const AppCard = ({ app }: AppCardProps) => (
-  <Card>
+  <Card to={`/app/${app.id}`}>
     <AppName>{app.name}</AppName>
     <AppAuthor>{app.author}</AppAuthor>
   </Card>
